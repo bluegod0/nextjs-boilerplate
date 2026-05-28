@@ -60,7 +60,7 @@ export function CommentThread({
 
   if (comments.length === 0) {
     return (
-      <p className="rounded-2xl border border-dashed p-4 text-sm text-muted-foreground">
+      <p className="rounded-[1.5rem] border border-dashed border-[#d8c4af] bg-[#fcf8f2] p-4 text-sm text-[#6d5b4d]">
         No comments yet. Be the first to leave one.
       </p>
     )
@@ -92,7 +92,13 @@ function CommentCard({
   const [isEditing, setIsEditing] = useState(false)
 
   return (
-    <article className="rounded-2xl border bg-card p-4 shadow-sm">
+    <article
+      className={`rounded-[1.5rem] border p-4 shadow-[0_12px_30px_rgba(75,48,26,0.06)] ${
+        owned
+          ? "border-[#cfa882] bg-[#fff7ee]"
+          : "border-[#e4d7c8] bg-[#fffaf4]"
+      }`}
+    >
       {isEditing ? (
         <CommentEditForm
           postId={postId}
@@ -101,14 +107,25 @@ function CommentCard({
         />
       ) : (
         <>
-          <p className="whitespace-pre-wrap text-sm leading-6">{comment.body}</p>
-          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+          <p className="whitespace-pre-wrap text-sm leading-7 text-[#2d2118]">{comment.body}</p>
+          <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#7c6756]">
             <time dateTime={new Date(comment.createdAt).toISOString()}>
               {formatDateTime(comment.createdAt)}
             </time>
             {owned ? (
+              <span className="rounded-full bg-[#f1e0cf] px-2.5 py-1 text-[#8e6240]">
+                Yours
+              </span>
+            ) : null}
+            {owned ? (
               <div className="ml-auto flex items-center gap-2">
-                <Button type="button" variant="outline" size="sm" onClick={() => setIsEditing(true)}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setIsEditing(true)}
+                  className="rounded-full border-[#d8c4af] bg-white/90 text-[#4a3424] hover:bg-[#fbf4ea]"
+                >
                   Edit
                 </Button>
                 <DeleteCommentForm
@@ -170,16 +187,22 @@ function CommentEditForm({
         required
         maxLength={300}
         rows={4}
-        className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none ring-0 transition focus:border-ring"
+        className="w-full rounded-2xl border border-[#dfcfbc] bg-white px-4 py-3 text-sm text-[#241a13] outline-none transition focus:border-[#cfa882] focus:ring-4 focus:ring-[#d8b18d]/20"
       />
 
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
+      {state.error ? <p className="text-sm text-[#a33d2e]">{state.error}</p> : null}
 
       <div className="flex items-center gap-2">
-        <Button type="submit" size="sm" disabled={pending}>
+        <Button type="submit" size="sm" disabled={pending} className="rounded-full px-4">
           {pending ? "Saving..." : "Save"}
         </Button>
-        <Button type="button" variant="outline" size="sm" onClick={onDone}>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={onDone}
+          className="rounded-full border-[#d8c4af] bg-white/90 px-4 text-[#4a3424] hover:bg-[#fbf4ea]"
+        >
           Cancel
         </Button>
       </div>
@@ -226,11 +249,17 @@ function DeleteCommentForm({
       <input type="hidden" name="commentId" value={comment.id} />
       <input type="hidden" name="editToken" value={comment.editToken} />
 
-      <Button type="submit" variant="outline" size="sm" disabled={pending}>
+      <Button
+        type="submit"
+        variant="outline"
+        size="sm"
+        disabled={pending}
+        className="rounded-full border-[#d8c4af] bg-white/90 px-4 text-[#4a3424] hover:bg-[#fbf4ea]"
+      >
         {pending ? "Deleting..." : "Delete"}
       </Button>
 
-      {state.error ? <p className="mt-2 text-xs text-red-600">{state.error}</p> : null}
+      {state.error ? <p className="mt-2 text-xs text-[#a33d2e]">{state.error}</p> : null}
     </form>
   )
 }

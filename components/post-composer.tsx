@@ -33,9 +33,12 @@ export function PostComposer() {
   }, [pending, router, state.postId, state.success])
 
   return (
-    <form action={formAction} className="space-y-4 rounded-2xl border bg-card p-5 shadow-sm">
+    <form
+      action={formAction}
+      className="space-y-4 rounded-[1.75rem] border border-[#e6d8c7] bg-[#fffaf4] p-5 shadow-[0_12px_30px_rgba(75,48,26,0.06)]"
+    >
       <div className="space-y-2">
-        <label htmlFor="post-title" className="text-sm font-medium">
+        <label htmlFor="post-title" className="text-sm font-medium text-[#2d2118]">
           Title
         </label>
         <input
@@ -44,12 +47,12 @@ export function PostComposer() {
           required
           maxLength={80}
           placeholder="Share something small"
-          className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none ring-0 transition focus:border-ring"
+          className="w-full rounded-2xl border border-[#dfcfbc] bg-white px-4 py-3 text-sm text-[#241a13] outline-none transition placeholder:text-[#aa9682] focus:border-[#cfa882] focus:ring-4 focus:ring-[#d8b18d]/20"
         />
       </div>
 
       <div className="space-y-2">
-        <label htmlFor="post-body" className="text-sm font-medium">
+        <label htmlFor="post-body" className="text-sm font-medium text-[#2d2118]">
           Body
         </label>
         <textarea
@@ -59,13 +62,13 @@ export function PostComposer() {
           maxLength={1000}
           rows={5}
           placeholder="Write your post here..."
-          className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none ring-0 transition focus:border-ring"
+          className="w-full rounded-2xl border border-[#dfcfbc] bg-white px-4 py-3 text-sm text-[#241a13] outline-none transition placeholder:text-[#aa9682] focus:border-[#cfa882] focus:ring-4 focus:ring-[#d8b18d]/20"
         />
       </div>
 
-      {state.error ? <p className="text-sm text-red-600">{state.error}</p> : null}
+      {state.error ? <p className="text-sm text-[#a33d2e]">{state.error}</p> : null}
 
-      <Button type="submit" disabled={pending}>
+      <Button type="submit" disabled={pending} className="rounded-full px-5">
         {pending ? "Posting..." : "Post"}
       </Button>
     </form>

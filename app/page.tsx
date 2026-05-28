@@ -2,11 +2,11 @@ import Link from "next/link"
 import { PostComposer } from "@/components/post-composer"
 import { listPosts } from "@/lib/cafe"
 
-function formatDateTime(value: Date) {
+function formatDateTime(value: Date | string) {
   return new Intl.DateTimeFormat("ko-KR", {
     dateStyle: "medium",
     timeStyle: "short",
-  }).format(value)
+  }).format(new Date(value))
 }
 
 export default async function Home() {

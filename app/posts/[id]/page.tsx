@@ -35,7 +35,10 @@ export default async function PostPage({
         </p>
         <h1 className="text-3xl font-semibold tracking-tight">{post.title}</h1>
         <p className="whitespace-pre-wrap text-sm leading-7 text-foreground">{post.body}</p>
-        <time className="text-xs text-muted-foreground" dateTime={post.createdAt.toISOString()}>
+        <time
+          className="text-xs text-muted-foreground"
+          dateTime={new Date(post.createdAt).toISOString()}
+        >
           Posted {formatDateTime(post.createdAt)}
         </time>
       </article>
